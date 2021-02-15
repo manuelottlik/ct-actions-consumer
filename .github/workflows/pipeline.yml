@@ -1,0 +1,28 @@
+name: build app
+on: [push]
+jobs:
+  naked-commands-example:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@master
+
+      - name: Abhängigkeiten installieren
+        run: npm install
+
+      - name: Unit-Tests durchlaufen
+        run: npm run test:unit
+
+      - name: Anwendung kompilieren
+        run: npm run build
+  
+  composite-run-example:
+    name: build docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@master
+
+      - name: Vue-App bauen
+        uses: ./.github/actions/build-vue-app

@@ -1,0 +1,15 @@
+name: Vue-App bauen
+description: Installiert Abhängigkeiten und kompiliert eine Vue-Anwendung.
+author: c't
+runs:
+  using: "composite"
+  steps:
+    - run: npm install
+      shell: bash
+
+    - run: npm run test:unit
+      shell: bash
+
+    - run: npm run build
+      shell: bash
+

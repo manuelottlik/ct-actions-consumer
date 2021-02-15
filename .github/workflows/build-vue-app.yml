@@ -65,13 +65,67 @@ jobs:
       
       - name: Namen für den Container festlegen
         uses: manuelottlik/ct-custom-actions/name-generator@main
+        with:
+          length: 2
         id: name-generator
 
       - name: Docker-Container bauen
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CONTAINER_NAME: ${{steps.name-generator.outputs.random-name}}
+          CONTAINER_NAME: ${{ steps.name-generator.outputs.random-name }}
         run: |
           echo $GITHUB_TOKEN | docker login -u publisher --password-stdin docker.pkg.github.com
           docker build --tag docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest .
           docker push docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
+
+  container-action-example:
+    name: Actions in Containern
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@master
+
+      - name: Vue-App bauen
+        uses: manuelottlik/ct-custom-actions/build-vue-app@main
+      
+      - name: Namen für den Container festlegen
+        uses: manuelottlik/ct-custom-actions/name-generator@main
+        with:
+          length: 2
+        id: name-generator
+
+      - name: Docker-Container bauen
+        uses: manuelottlik/ct-custom-actions/docker-build-push@main
+        with:
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+          image_name: ${{ steps.name-generator.outputs.random-name }}
+
+  private-repo-example:
+    name: Actions aus privaten Repositories
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@master
+      
+      - name: Actions-Repository auschecken
+        uses: actions/checkout@master
+        with: 
+          repository: manuelottlik/ct-custom-actions
+          ref: main
+          path: .github/ct-custom-actions
+          token: ${{ secrets.REPO_TOKEN }}
+
+      - name: Vue-App bauen
+        uses: ./.github/ct-custom-actions/build-vue-app
+      
+      - name: Namen für den Container festlegen
+        uses: ./.github/ct-custom-actions/name-generator
+        with:
+          length: 2
+        id: name-generator
+
+      - name: Docker-Container bauen
+        uses: ./.github/ct-custom-actions/docker-build-push
+        with:
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+          image_name: ${{ steps.name-generator.outputs.random-name }}

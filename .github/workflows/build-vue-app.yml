@@ -1,4 +1,4 @@
-name: build app
+name: Vue-App bauen
 on: [push]
 jobs:
   naked-commands-example:

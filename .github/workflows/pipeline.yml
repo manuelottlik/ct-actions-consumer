@@ -49,7 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONTAINER_NAME: ${{steps.name-generator.outputs.random-name}}
         run: |
-          echo $GITHUB_TOKEN | docker login -u manuelottlik --password-stdin
+          echo $GITHUB_TOKEN | docker login -u publisher --password-stdin docker.pkg.github.com
           docker build --tag docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest .
           docker push docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
   

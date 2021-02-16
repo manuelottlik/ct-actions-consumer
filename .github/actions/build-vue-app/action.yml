@@ -12,4 +12,3 @@ runs:
 
     - run: npm run build
       shell: bash
-

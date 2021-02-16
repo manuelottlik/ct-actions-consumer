@@ -31,7 +31,7 @@ jobs:
           docker push docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
   
   composite-run-example:
-    name: Zusammengeführte Kommandozeilenbefehle
+    name: Aneinandergereihte Kommandozeilenbefehle
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken

@@ -26,9 +26,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONTAINER_NAME: ${{steps.name-generator.outputs.random-name}}
         run: |
-          echo $GITHUB_TOKEN | docker login -u publisher --password-stdin docker.pkg.github.com
-          docker build --tag docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest .
-          docker push docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
+          echo $GITHUB_TOKEN | docker login -u publisher --password-stdin ghcr.io
+          docker build --tag ghcr.io/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest .
+          docker push ghcr.io/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
   
   composite-run-example:
     name: Aneinandergereihte Kommandozeilenbefehle
@@ -49,9 +49,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONTAINER_NAME: ${{steps.name-generator.outputs.random-name}}
         run: |
-          echo $GITHUB_TOKEN | docker login -u publisher --password-stdin docker.pkg.github.com
-          docker build --tag docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest .
-          docker push docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
+          echo $GITHUB_TOKEN | docker login -u publisher --password-stdin ghcr.io
+          docker build --tag ghcr.io/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest .
+          docker push ghcr.io/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
   
   node-action-example:
     name: Actions mit Node.js
@@ -74,9 +74,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONTAINER_NAME: ${{ steps.name-generator.outputs.random-name }}
         run: |
-          echo $GITHUB_TOKEN | docker login -u publisher --password-stdin docker.pkg.github.com
-          docker build --tag docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest .
-          docker push docker.pkg.github.com/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
+          echo $GITHUB_TOKEN | docker login -u publisher --password-stdin ghcr.io
+          docker build --tag ghcr.io/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest .
+          docker push ghcr.io/manuelottlik/ct-actions-consumer/${CONTAINER_NAME}:latest
 
   container-action-example:
     name: Actions in Containern
